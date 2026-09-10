@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * p_rich_text paragraph — see docs/campaign-blog-field-spec.md §5.1.
+ *
+ * field_text uses the restricted "Story body" text format (§6): only
+ * p/h2/h3/ul/ol/li/strong/em/a/br survive. That's what lets .story-rich-text
+ * style the raw <h2>/<ol> output in components.css without any extra markup
+ * from the author — a listicle is just an <ol>, a section break is just an
+ * <h2>.
+ */
+#}
+<div{{ attributes.addClass('story-rich-text') }}>
+  {{ content.field_text }}
+</div>

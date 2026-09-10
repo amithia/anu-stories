@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * p_highlight paragraph — see docs/campaign-blog-field-spec.md §5.5.
+ *
+ * field_style: tip | key_takeaway | stat. Each style has one fixed visual,
+ * mapped from the prototype's Highlight A/B/F options — see
+ * docs/implementation-notes.md #2 for the mapping and why "stat" renders
+ * as the copper treatment rather than a numeric-stat layout.
+ #}
+{% set style = paragraph.field_style.value|default('tip') %}
+<div{{ attributes.addClass('story-highlight', 'story-highlight--' ~ style|clean_class) }}>
+  {% if style == 'tip' %}
+    <span class="story-highlight__icon" aria-hidden="true">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.4.3.6.8.6 1.3V16h6v-.9c0-.5.2-1 .6-1.3A6 6 0 0 0 12 3z"></path>
+      </svg>
+    </span>
+  {% endif %}
+  <div class="story-highlight__body">
+    {% if content.field_heading|render|trim %}
+      <p class="story-highlight__heading">{{ content.field_heading }}</p>
+    {% elseif style != 'tip' %}
+      <p class="story-highlight__eyebrow">Good to know</p>
+    {% endif %}
+    <div class="story-highlight__text">{{ content.field_text }}</div>
+  </div>
+</div>

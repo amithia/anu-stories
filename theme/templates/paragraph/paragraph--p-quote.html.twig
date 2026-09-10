@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * p_quote paragraph — see docs/campaign-blog-field-spec.md §5.4.
+ *
+ * field_style (NEW field, added per docs/implementation-notes.md #1):
+ * gold_mark (default) | copper_bar. Author toggles attribution simply by
+ * filling in / leaving blank field_attrib_name — no separate "with author /
+ * no author" style option needed, matching the content team's ask that both
+ * be available per quote (chat2.md).
+ *
+ * Renders <figure><blockquote>…</blockquote><figcaption>…</figcaption></figure>
+ * per the field spec; <cite> carries the name+role so screen readers get
+ * real attribution semantics.
+ #}
+{% set style = paragraph.field_style.value|default('gold_mark') %}
+<figure{{ attributes.addClass('story-quote', 'story-quote--' ~ style|clean_class) }}>
+  <blockquote>
+    {% if style == 'gold_mark' %}
+      <span class="story-quote__mark" aria-hidden="true">&ldquo;</span>
+    {% endif %}
+    <p class="story-quote__text">{{ paragraph.field_quote.value }}</p>
+  </blockquote>
+  {% if content.field_attrib_name|render|trim %}
+    <figcaption class="story-quote__cite">
+      <cite>
+        {{ content.field_attrib_name }}{% if content.field_attrib_role|render|trim %}, {{ content.field_attrib_role }}{% endif %}
+      </cite>
+    </figcaption>
+  {% endif %}
+</figure>

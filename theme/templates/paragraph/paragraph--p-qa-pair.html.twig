@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * p_qa_pair — nested paragraph inside p_interview, see field-spec §5.6.
+ * Rendered once per pair via content.field_qa_pairs on the parent template.
+ #}
+<div{{ attributes.addClass('story-interview__qa') }}>
+  <p class="story-interview__label"><span class="visually-hidden">Question:</span> QUESTION</p>
+  <h3 class="story-interview__question">{{ paragraph.field_question.value }}</h3>
+  <div class="story-interview__answer">{{ content.field_answer }}</div>
+</div>

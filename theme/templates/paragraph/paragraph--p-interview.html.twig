@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * p_interview paragraph — see docs/campaign-blog-field-spec.md §5.6.
+ *
+ * Question rendered as a real <h3> (heading order preserved for
+ * screen-reader nav) but at the same visual size/weight as an h2 section
+ * heading — the content team flagged the default h3 size as "too small"
+ * for this (chat2.md). See paragraph--p-qa-pair.html.twig for the pair
+ * markup and .story-interview__question in components.css for the sizing.
+ *
+ * `qa_schema_json` is built server-side in anu_stories_preprocess_paragraph()
+ * (theme/anu_stories.theme) — one FAQPage/Question JSON-LD block per
+ * interview, per the dev note in the field spec (free rich-result
+ * eligibility this component would otherwise throw away).
+ #}
+<div{{ attributes.addClass('story-interview') }}>
+  {% if content.field_speaker|render|trim %}
+    <div class="story-interview__speaker">
+      {% if content.field_media|render|trim %}{{ content.field_media }}{% endif %}
+      <span class="story-interview__speaker-name">{{ content.field_speaker }}</span>
+    </div>
+  {% endif %}
+
+  {{ content.field_qa_pairs }}
+</div>
+
+{% if qa_schema_json %}
+  <script type="application/ld+json">{{ qa_schema_json|raw }}</script>
+{% endif %}

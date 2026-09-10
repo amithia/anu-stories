@@ -1,0 +1,452 @@
+/* ANU Stories — story component styles
+ *
+ * Implements the components used in `Example Template.dc.html` (the Claude
+ * Design handoff, "Study Stories redesign") as real, reusable classes rather
+ * than per-node inline styles — see docs/campaign-blog-field-spec.md for the
+ * Paragraph types these map to, and docs/implementation-notes.md for the
+ * decisions made translating the prototype into this component set.
+ *
+ * Depends on tokens/colors.css, tokens/typography.css, tokens/spacing.css.
+ */
+
+/* ---------------------------------------------------------------------
+ * Story shell — header, lead, body rhythm
+ * ------------------------------------------------------------------- */
+
+.story {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--container-pad) 100px;
+}
+
+.story-header__eyebrow {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-heavy);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--anu-gold-dark);
+  margin-bottom: 10px;
+}
+
+.story-header__title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: var(--fw-heavy);
+  color: var(--anu-black);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight);
+  margin-bottom: 16px;
+}
+
+.story-header__lead {
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: var(--space-7);
+}
+
+.story-body {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Every direct child of the body is one story component (a rendered
+ * Paragraph). A consistent gap between them is what "not bunched up
+ * together" meant in the design brief — see chat2.md. */
+.story-body > * {
+  margin-bottom: var(--space-7);
+}
+.story-body > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Rich text (p_rich_text) — prose, section headings, listicles
+ * ------------------------------------------------------------------- */
+
+.story-rich-text p {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--anu-unigrey);
+}
+.story-rich-text p + p {
+  margin-top: var(--space-5);
+}
+
+/* The section-heading treatment: gold left-bar, bold black type.
+ * Shared by the plain rich-text h2, the listicle heading, and the
+ * interview question (which is rendered at the same size — see
+ * paragraph--p-interview.html.twig). */
+.story-section-heading,
+.story-rich-text h2 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heavy);
+  color: var(--anu-black);
+  line-height: 1.25;
+  letter-spacing: var(--ls-tight);
+  border-left: var(--border-width-thick) solid var(--anu-gold);
+  padding-left: 14px;
+  margin: 0 0 28px;
+}
+
+.story-rich-text h3 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  color: var(--anu-black);
+  margin: 0 0 12px;
+}
+
+.story-rich-text a {
+  color: var(--anu-link);
+}
+.story-rich-text a:hover {
+  color: var(--anu-link-hover);
+}
+
+/* Numbered listicle — an <ol> inside the "Story body" text format
+ * (ol/li are allowed tags; see field-spec §6). Authors just make an
+ * ordered list — this styling is what turns it into the oversized-numeral
+ * layout, no extra markup required. */
+.story-rich-text ol {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  counter-reset: story-listicle;
+}
+.story-rich-text ol li {
+  counter-increment: story-listicle;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.story-rich-text ol li::before {
+  content: counter(story-listicle, decimal-leading-zero);
+  font-size: 22px;
+  font-weight: var(--fw-heavy);
+  color: var(--anu-gold);
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+/* Authors write each listicle item as "Heading — body text" on one line
+ * inside the <li>; the heading portion is the first <strong>. */
+.story-rich-text ol li strong {
+  display: block;
+  font-size: 16.5px;
+  font-weight: var(--fw-bold);
+  color: var(--anu-black);
+  margin-bottom: 5px;
+}
+.story-rich-text ul {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--anu-unigrey);
+}
+
+/* ---------------------------------------------------------------------
+ * Image (p_image) — standard / wide / full / small widths
+ * ------------------------------------------------------------------- */
+
+.story-image {
+  margin: 0 auto;
+}
+.story-image img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+.story-image figcaption {
+  font-size: 13px;
+  color: var(--text-subtle);
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* standard: fills the reading column, matches the full-width photo breaks
+ * in Example Template (max 680px, 340px tall). */
+.story-image--standard {
+  max-width: 680px;
+}
+.story-image--standard img {
+  height: 340px;
+}
+
+/* small: an inline, narrower photo (the "campus-bikes" treatment).
+ * NOTE: not in the original field-spec width list (standard/wide/full) —
+ * added to match Example Template. See docs/implementation-notes.md. */
+.story-image--small {
+  max-width: 340px;
+}
+.story-image--small img {
+  height: 210px;
+}
+.story-image--small figcaption {
+  margin-top: 8px;
+}
+
+/* wide: breaks out of the reading column but stays inset from the viewport. */
+.story-image--wide {
+  max-width: 960px;
+}
+.story-image--wide img {
+  height: 420px;
+}
+
+/* full: edge-to-edge, no column constraint. */
+.story-image--full {
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+.story-image--full img {
+  height: 480px;
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Quote (p_quote) — field_style: gold_mark | copper_bar
+ * ------------------------------------------------------------------- */
+
+.story-quote {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+/* gold_mark — "Quote B" in the prototype: big decorative gold quotation
+ * mark beside the text, no attribution shown. */
+.story-quote--gold-mark {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  border: none;
+  padding: 0;
+}
+.story-quote--gold-mark .story-quote__mark {
+  font-size: 56px;
+  font-weight: var(--fw-heavy);
+  line-height: 0.6;
+  color: var(--anu-gold);
+  flex-shrink: 0;
+}
+.story-quote--gold-mark .story-quote__text {
+  font-size: 19px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.45;
+  color: var(--anu-black);
+  margin: 0;
+}
+
+/* copper_bar — "Quote H" in the prototype: ANU-Reporter-inspired left
+ * border rule, attribution shown in small caps. Off-core-palette accent —
+ * see the --story-copper token comment in tokens/colors.css. */
+.story-quote--copper-bar {
+  border-left: var(--border-width-thick) solid var(--story-copper-light);
+  padding-left: 22px;
+}
+.story-quote--copper-bar .story-quote__text {
+  font-size: 19px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.45;
+  color: var(--story-ink-soft);
+  margin: 0 0 10px;
+}
+.story-quote--copper-bar .story-quote__cite {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--story-copper);
+}
+
+/* ---------------------------------------------------------------------
+ * Highlight (p_highlight) — field_style: tip | key_takeaway | stat
+ * Each style keeps a fixed visual (mapped 1:1 from the prototype's
+ * Highlight A / B / F options — see implementation-notes.md).
+ * ------------------------------------------------------------------- */
+
+.story-highlight {
+  padding: 18px 22px;
+}
+
+/* tip — "Highlight A": gold-tint panel with a circular icon. */
+.story-highlight--tip {
+  display: flex;
+  gap: 16px;
+  background: var(--anu-gold-tint);
+  border-radius: var(--radius-sm);
+  align-items: center;
+}
+.story-highlight--tip .story-highlight__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--anu-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.story-highlight--tip .story-highlight__icon svg {
+  stroke: var(--anu-gold-dark);
+}
+.story-highlight--tip .story-highlight__text {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--anu-black);
+  margin: 0;
+}
+
+/* key_takeaway — "Highlight B": bordered card, gold left-bar, eyebrow label. */
+.story-highlight--key-takeaway {
+  border: var(--border-width) solid var(--border-default);
+  border-left: var(--border-width-thick) solid var(--anu-gold);
+}
+.story-highlight--key-takeaway .story-highlight__eyebrow {
+  font-size: 11px;
+  font-weight: var(--fw-heavy);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--anu-gold-dark);
+  margin-bottom: 8px;
+}
+.story-highlight--key-takeaway .story-highlight__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--anu-black);
+  margin: 0;
+}
+
+/* stat — "Highlight F": copper left-bar on warm grey. Off-core-palette
+ * accent, same caveat as the copper quote variant. */
+.story-highlight--stat {
+  border-left: var(--border-width-thick) solid var(--story-copper);
+  background: var(--story-copper-surface);
+}
+.story-highlight--stat .story-highlight__eyebrow {
+  font-size: 11px;
+  font-weight: var(--fw-heavy);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--story-copper);
+  margin-bottom: 8px;
+}
+.story-highlight--stat .story-highlight__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--story-ink-soft);
+  margin: 0;
+}
+
+.story-highlight__heading {
+  font-size: 15.5px;
+  font-weight: var(--fw-bold);
+  margin: 0 0 4px;
+}
+
+/* ---------------------------------------------------------------------
+ * Interview (p_interview) — question rendered at section-heading size
+ * ------------------------------------------------------------------- */
+
+.story-interview__speaker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--space-5);
+}
+.story-interview__speaker img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.story-interview__speaker-name {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  color: var(--anu-black);
+}
+
+.story-interview__qa + .story-interview__qa {
+  margin-top: var(--space-7);
+}
+
+.story-interview__label {
+  font-size: 11px;
+  font-weight: var(--fw-heavy);
+  letter-spacing: 0.1em;
+  color: var(--anu-gold-dark);
+  margin-bottom: 8px;
+}
+
+/* The question is a real <h3> (for screen-reader nav — see field spec §5.6
+ * dev note) but visually matches the section-heading size/weight rather
+ * than a normal h3 — the content team asked for this explicitly because
+ * the default h3 size "feels too small" here. */
+.story-interview__question {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heavy);
+  color: var(--anu-black);
+  line-height: 1.25;
+  letter-spacing: var(--ls-tight);
+  margin: 0 0 16px;
+}
+
+.story-interview__answer {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--anu-unigrey);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+ * Author byline (node fields, rendered top and/or bottom of the article —
+ * NOT a Paragraph; see field-spec §5.9)
+ * ------------------------------------------------------------------- */
+
+.story-byline {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.story-byline--bottom {
+  padding-top: 40px;
+  border-top: var(--border-width) solid var(--border-default);
+}
+.story-byline__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.story-byline__avatar--fallback {
+  background: var(--anu-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--anu-white);
+}
+.story-byline__label {
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  margin-bottom: 4px;
+}
+.story-byline__name {
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  color: var(--anu-black);
+  margin: 0;
+}
+.story-byline__role {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}

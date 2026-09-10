@@ -1,0 +1,10 @@
+/* ANU Webstyle — Webfont
+ * Public Sans is the single ANU brand typeface (body, headings, menus, banners).
+ * Source: webpublishing.anu.edu.au/web-style-guide/text
+ *
+ * Production note: the live site should self-host these weights (or serve via
+ * an existing ANU webfont pipeline) rather than call Google Fonts directly —
+ * this @import is carried over from the design-system preview bundle as a
+ * placeholder so the tokens resolve standalone in the /preview page.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
