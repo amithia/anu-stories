@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Author byline partial — node fields (field_author_*), not a Paragraph.
+ * See docs/campaign-blog-field-spec.md §5.9 and §3 rows 13-17.
+ * Included from node--campaign-blog--full.html.twig at top and/or bottom
+ * per field_author_placement.
+ #}
+<div class="story-byline story-byline--{{ position }}">
+  {% if content.field_author_image|render|trim %}
+    {{ content.field_author_image }}
+  {% else %}
+    <span class="story-byline__avatar story-byline__avatar--fallback" aria-hidden="true">
+      {{ node.field_author_name.value|split(' ')|map(w => w|first)|join('') }}
+    </span>
+  {% endif %}
+  <div>
+    <p class="story-byline__label">Written by</p>
+    <p class="story-byline__name">{{ content.field_author_name }}</p>
+    {% if content.field_author_role|render|trim %}
+      <p class="story-byline__role">{{ content.field_author_role }}</p>
+    {% endif %}
+  </div>
+</div>

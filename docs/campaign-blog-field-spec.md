@@ -118,9 +118,11 @@ Notes for the dev:
 |---|---|---|---|---|---|
 | Image | `field_media` | Media ref (Image) | 1 | Yes | Alt text on the media entity. |
 | Caption | `field_caption` | Text (formatted, long) | 1 | No | Visible below the image. `<em> <strong> <a>` only. |
-| Width | `field_width` | List (text) | 1 | Yes | `standard` (default, content column), `wide` (breaks out of the column), `full` (full-bleed edge to edge). |
+| Width | `field_width` | List (text) | 1 | Yes | `standard` (default, content column), `wide` (breaks out of the column), `full` (full-bleed edge to edge), `small` (narrow inline image, ~340px). |
 
 This replaces the current practice of authors resizing images by hand — that's why sizes are inconsistent today. **Width is a field, not a pixel value.** Responsive image styles are configured per width option by the developer.
+
+> **Amended during build** (see `docs/implementation-notes.md` #2): `small` added to match the narrow inline photo treatment used in `Example Template.dc.html`, not present in the original brief.
 
 ### 5.3 Embed — `p_embed`
 
@@ -139,8 +141,11 @@ This replaces the current practice of authors resizing images by hand — that's
 | Attribution name | `field_attrib_name` | String | 1 | No | |
 | Attribution role | `field_attrib_role` | String | 1 | No | e.g. "Bachelor of Health Science, 2024". |
 | Image | `field_media` | Media ref (Image) | 1 | No | Optional headshot beside the quote. |
+| Style | `field_style` | List (text) | 1 | Yes | `gold_mark` (default), `copper_bar`. **NEW, added during build.** |
 
-Renders as `<figure><blockquote>…</blockquote><figcaption>…</figcaption></figure>`.
+Renders as `<figure><blockquote>…</blockquote><figcaption>…</figcaption></figure>`. Attribution is independent of style — every style supports both a "with author" and "no author" rendering, controlled purely by whether `field_attrib_name` is filled in.
+
+> **Amended during build** (see `docs/implementation-notes.md` #1): `field_style` added so both prototype quote treatments ("Quote B" gold-mark, "Quote H" copper left-bar) are available to authors, per the content team's request that every quote style support with/without author. `copper_bar` uses off-core-palette colour (not black/white/gold) — flagged for Brand & Marketing sign-off before wide use.
 
 ### 5.5 Highlight — `p_highlight` *(NEW)*
 The "potential to do a highlight?" idea from the source doc. A visually distinct call-out box for a key takeaway, tip or statistic.
@@ -149,7 +154,7 @@ The "potential to do a highlight?" idea from the source doc. A visually distinct
 |---|---|---|---|---|---|
 | Heading | `field_heading` | String | 1 | No | |
 | Text | `field_text` | Text (formatted, long) | 1 | Yes | `<p> <ul> <ol> <li> <strong> <em> <a>`. |
-| Style | `field_style` | List (text) | 1 | Yes | `tip`, `key_takeaway`, `stat`. |
+| Style | `field_style` | List (text) | 1 | Yes | `tip`, `key_takeaway`, `stat`. Each renders one fixed visual treatment — see `docs/implementation-notes.md` #3 for the mapping and an open question about whether `stat` needs its own component instead. |
 
 ### 5.6 Interview Q&A — `p_interview` *(NEW)*
 The "NEW – Interview heading" idea. Today interviews are hand-formatted as bold `Q:` lines in the body — inconsistent, and invisible to search engines as Q&A.

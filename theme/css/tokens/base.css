@@ -1,0 +1,65 @@
+/* ANU Webstyle — base element styles.
+ * Ported from the ANU Component Library design-system bundle.
+ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-body);
+  line-height: var(--lh-heading);
+  font-weight: var(--fw-bold);
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+h5 { font-size: var(--fs-h5); }
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--text-link); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--anu-link-hover); }
+
+strong, b { font-weight: var(--fw-bold); }
+small { font-size: var(--fs-small); }
+
+img { max-width: 100%; display: block; }
+
+/* Browsers italicise <cite>/<blockquote> by default and can serif-fallback
+ * them — override explicitly rather than relying on inheritance (this bit
+ * the prototype too; see chats/chat2.md). */
+cite, blockquote { font-style: normal; font-family: var(--font-body); }
+code { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.eyebrow {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-gold);
+}
+
+.anu-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}

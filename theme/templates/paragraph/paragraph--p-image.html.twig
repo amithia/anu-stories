@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * p_image paragraph — see docs/campaign-blog-field-spec.md §5.2.
+ *
+ * field_width: standard (default) | wide | full | small.
+ * "small" is not in the original field spec — added to match the inline
+ * campus-bikes treatment in Example Template.dc.html. See
+ * docs/implementation-notes.md for why, and update the field's allowed
+ * values list to include it before this ships.
+ *
+ * field_media is rendered through its own image style per width — configure
+ * a responsive image style per variant (§9, "Performance") rather than
+ * hard-coding dimensions here; the CSS only sets the *container* max-width.
+ #}
+{% set width = paragraph.field_width.value|default('standard') %}
+<figure{{ attributes.addClass('story-image', 'story-image--' ~ width) }}>
+  {{ content.field_media }}
+  {% if content.field_caption|render|trim %}
+    <figcaption>{{ content.field_caption }}</figcaption>
+  {% endif %}
+</figure>

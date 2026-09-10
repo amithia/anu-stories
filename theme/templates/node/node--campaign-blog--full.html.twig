@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * campaign_blog — Full view mode, story body only.
+ *
+ * Scope note: this template covers the header (eyebrow/title/lead), the
+ * component-by-component article body, and the author byline — the set
+ * Example Template.dc.html demonstrates. Banner/hero, related-stories, CTA
+ * band and site nav belong to the other prototype files (Study Stories -
+ * Article.dc.html etc.) and are intentionally out of scope for this pass —
+ * see docs/implementation-notes.md.
+ *
+ * `reading_time` is computed in anu_stories_preprocess_node() — see
+ * theme/anu_stories.theme — never author-entered (field-spec §7.1).
+ #}
+<article{{ attributes.addClass('story') }}>
+
+  <header class="story-header">
+    {% if content.field_story_tag|render|trim %}
+      <p class="story-header__eyebrow">{{ content.field_story_tag }}</p>
+    {% endif %}
+    <h1 class="story-header__title">{{ node.label }}</h1>
+    {% if content.field_introduction|render|trim %}
+      <div class="story-header__lead">{{ content.field_introduction }}</div>
+    {% endif %}
+    <p class="story-header__meta">
+      {{ content.field_display_date }}
+      {% if reading_time %}&nbsp;·&nbsp;{{ reading_time }} min read{% endif %}
+    </p>
+  </header>
+
+  {% set placement = node.field_author_placement.value|default('bottom') %}
+
+  {% if placement in ['top', 'both'] and content.field_author_name|render|trim %}
+    {% include '@anu_stories/partials/story-byline.html.twig' with { 'position': 'top' } %}
+  {% endif %}
+
+  <div class="story-body">
+    {{ content.field_story_content }}
+  </div>
+
+  {% if placement in ['bottom', 'both'] and content.field_author_name|render|trim %}
+    {% include '@anu_stories/partials/story-byline.html.twig' with { 'position': 'bottom' } %}
+  {% endif %}
+
+</article>

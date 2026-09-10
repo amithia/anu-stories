@@ -1,0 +1,68 @@
+/* ANU Webstyle — Colour tokens
+ * Ported from the ANU Component Library design-system bundle (Claude Design
+ * handoff, "Study Stories redesign", Sep 2026). Source values unchanged.
+ *
+ * The ANU Identity uses a deliberately restrained palette: black & white do
+ * the heavy lifting, ANU Gold is a sparse highlight (never more than ~1/8 of
+ * a page), and a warm Gold Tint provides the only soft background.
+ * Source: webpublishing.anu.edu.au/web-style-guide/colours
+ */
+:root {
+  /* ---- Core brand ---- */
+  --anu-black: #000000;
+  --anu-white: #ffffff;
+  --anu-gold: #be830e;       /* ANU Gold — key highlight only */
+  --anu-gold-tint: #f5edde;  /* ANU Gold Tint — soft background */
+  --anu-unigrey: #333333;    /* Unigrey — secondary text */
+
+  /* ---- Gold ramp (derived, for hovers / accessible gold text) ---- */
+  --anu-gold-dark: #8a5f08;  /* darker gold for small text / hover on light */
+  --anu-gold-soft: #e9d9b6;  /* hairline gold borders on tint */
+
+  /* ---- Supporting neutrals (derived — borders, fills, dividers) ---- */
+  --anu-grey-900: #1a1a1a;
+  --anu-grey-700: #4d4d4d;
+  --anu-grey-500: #767676;   /* WCAG AA on white */
+  --anu-grey-300: #cccccc;
+  --anu-grey-200: #dadada;   /* card / input hairline */
+  --anu-grey-100: #f2f2f2;   /* subtle surface */
+
+  /* ---- Link blue (ANU webstyle default link colour) ---- */
+  --anu-link: #1e5dad;
+  --anu-link-hover: #14457f;
+
+  /* ---- Feedback (kept minimal & brand-consonant) ---- */
+  --anu-success: #1e7a46;
+  --anu-error: #b3261e;
+
+  /* ================= Semantic aliases ================= */
+  --text-body: var(--anu-black);
+  --text-muted: var(--anu-unigrey);
+  --text-subtle: var(--anu-grey-500);
+  --text-on-dark: var(--anu-white);
+  --text-gold: var(--anu-gold);
+  --text-link: var(--anu-link);
+
+  --surface-page: var(--anu-white);
+  --surface-tint: var(--anu-gold-tint);
+  --surface-ink: var(--anu-black);
+  --surface-subtle: var(--anu-grey-100);
+
+  --border-default: var(--anu-grey-200);
+  --border-strong: var(--anu-black);
+  --accent: var(--anu-gold);
+  --accent-rule: var(--anu-gold);
+  --focus-ring: var(--anu-gold);
+
+  /* ---- "ANU Reporter" accent (off-core-palette) ----
+   * Used by the copper quote/highlight variants (Quote H, Highlight F) that
+   * the content team explicitly asked for as a magazine-style exploration —
+   * see docs/implementation-notes.md. NOT part of the core ANU webstyle
+   * palette (black/white/gold only). Confirm with Brand & Marketing before
+   * this ships site-wide; it is currently scoped to these two variants only.
+   */
+  --story-copper: #8B4A1F;      /* AA on white */
+  --story-copper-light: #C9803F; /* decorative border only, not text */
+  --story-copper-surface: #F4F1EE;
+  --story-ink-soft: #2B2B2E;
+}

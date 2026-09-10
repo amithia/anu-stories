@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * Preprocess functions backing the Example Template component set.
+ *
+ * Two things are computed server-side rather than authored, per the field
+ * spec's own rules:
+ *  - reading time (§7.1: "will go stale the moment a story is edited")
+ *  - FAQPage/Question JSON-LD for interview paragraphs (§5.6 dev note)
+ *
+ * Drop this file's contents into your theme's existing .theme file (or
+ * rename to <yourtheme>.theme) — written as free functions here so it's
+ * copy-pasteable regardless of the target theme's machine name; adjust the
+ * `anu_stories_` prefix to match.
+ */
+
+use Drupal\node\NodeInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
+/**
+ * Implements hook_preprocess_node() for campaign_blog / full view mode.
+ */
+function anu_stories_preprocess_node__campaign_blog(array &$variables) {
+  if (($variables['view_mode'] ?? NULL) !== 'full') {
+    return;
+  }
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $variables['reading_time'] = _anu_stories_reading_time($node);
+}
+
+/**
+ * Word count across all p_rich_text and p_interview paragraphs, /200wpm,
+ * rounded up, minimum 1. See field-spec §7.1.
+ */
+function _anu_stories_reading_time(NodeInterface $node): int {
+  if (!$node->hasField('field_story_content')) {
+    return 1;
+  }
+  $words = 0;
+  foreach ($node->get('field_story_content')->referencedEntities() as $paragraph) {
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+    $words += _anu_stories_count_paragraph_words($paragraph);
+  }
+  return max(1, (int) ceil($words / 200));
+}
+
+function _anu_stories_count_paragraph_words(ParagraphInterface $paragraph): int {
+  $words = 0;
+  switch ($paragraph->bundle()) {
+    case 'p_rich_text':
+      $words += _anu_stories_word_count($paragraph->get('field_text')->value ?? '');
+      break;
+
+    case 'p_interview':
+      foreach ($paragraph->get('field_qa_pairs')->referencedEntities() as $pair) {
+        $words += _anu_stories_word_count($pair->get('field_question')->value ?? '');
+        $words += _anu_stories_word_count($pair->get('field_answer')->value ?? '');
+      }
+      break;
+  }
+  return $words;
+}
+
+function _anu_stories_word_count(string $html): int {
+  $text = trim(strip_tags($html));
+  return $text === '' ? 0 : str_word_count($text);
+}
+
+/**
+ * Implements hook_preprocess_paragraph() for p_interview.
+ *
+ * Builds one FAQPage/Question JSON-LD block per interview paragraph so the
+ * Q&A is eligible for rich results — see field-spec §5.6 dev note. Exposed
+ * to the template as `qa_schema_json` (already json_encode()'d).
+ */
+function anu_stories_preprocess_paragraph__p_interview(array &$variables) {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $variables['paragraph'];
+  if (!$paragraph->hasField('field_qa_pairs')) {
+    return;
+  }
+
+  $entities = [];
+  foreach ($paragraph->get('field_qa_pairs')->referencedEntities() as $pair) {
+    $question = trim(strip_tags($pair->get('field_question')->value ?? ''));
+    $answer = trim(strip_tags($pair->get('field_answer')->value ?? ''));
+    if ($question === '' || $answer === '') {
+      continue;
+    }
+    $entities[] = [
+      '@type' => 'Question',
+      'name' => $question,
+      'acceptedAnswer' => [
+        '@type' => 'Answer',
+        'text' => $answer,
+      ],
+    ];
+  }
+
+  if (!$entities) {
+    return;
+  }
+
+  $variables['qa_schema_json'] = json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => $entities,
+  ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}

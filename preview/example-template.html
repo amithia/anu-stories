@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example Template — component preview</title>
+<link rel="stylesheet" href="../theme/css/tokens/fonts.css">
+<link rel="stylesheet" href="../theme/css/tokens/colors.css">
+<link rel="stylesheet" href="../theme/css/tokens/typography.css">
+<link rel="stylesheet" href="../theme/css/tokens/spacing.css">
+<link rel="stylesheet" href="../theme/css/tokens/base.css">
+<link rel="stylesheet" href="../theme/css/components.css">
+<style>
+  /* Preview-page-only chrome — not part of the component library. */
+  .preview-banner {
+    background: var(--anu-black);
+    color: var(--anu-white);
+    font-size: 13px;
+    text-align: center;
+    padding: 10px 16px;
+  }
+  .preview-banner a { color: var(--anu-gold-soft); }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<p class="preview-banner">
+  Static preview of the Example Template component set — real markup + CSS
+  classes, no Drupal required. See <a href="../theme/README.md">theme/README.md</a>
+  to wire these into a theme.
+</p>
+
+<article class="story">
+
+  <header class="story-header">
+    <p class="story-header__eyebrow">Our people</p>
+    <h1 class="story-header__title">A day in the life of Margaux Sieb</h1>
+    <div class="story-header__lead">
+      <p>Have you ever wanted to know what a day in the life of a student at ANU is like? It has sun-filled study sessions, coffee dates, social sport with friends and inspiring academic events. Meet Margaux Sieb, a third-year student balancing a Bachelor of Commerce/Bachelor of Science (Psychology) Flexible Double Degree with a packed soccer schedule.</p>
+    </div>
+    <p class="story-header__meta">Jun 26 2025 · 6 min read</p>
+  </header>
+
+  <div class="story-body">
+
+    <!-- p_rich_text: section heading + prose -->
+    <div class="story-rich-text">
+      <h2>Morning: rise and research</h2>
+      <p>Margaux lives off campus with a group of friends, a short ride from the academic precinct, and she is at Chifley Library most mornings well before 8am. &ldquo;The reading rooms are honestly magical at that hour,&rdquo; she says, settling into her usual corner by the east-facing windows overlooking University Avenue. A flat white from the Arts Centre caf&eacute; is non-negotiable before she opens a single reading, and she likes to get through at least one journal article before the rest of campus is properly awake.</p>
+      <p>&ldquo;I used to think early starts were overrated,&rdquo; she admits. &ldquo;But there is something about campus at 7am that you cannot replicate at noon &mdash; it&rsquo;s quiet, the light is good, and nobody is rushing anywhere.&rdquo; She plays for both ANU&rsquo;s Division 1 and Premier League teams, so training and matches are non-negotiable fixtures around her study timetable.</p>
+    </div>
+
+    <!-- p_image: standard width -->
+    <figure class="story-image story-image--standard">
+      <img src="img/campus-avenue.jpg" alt="Margaux walking along the tree-lined campus avenue toward Chifley Library at sunrise">
+      <figcaption>Campus avenue — the 850-metre tree-lined pedestrian spine linking the academic precinct to Kambri.</figcaption>
+    </figure>
+
+    <div class="story-rich-text">
+      <p>By the time most students are getting out of bed, Margaux has already claimed her desk, answered her emails, and made a start on the case study she&rsquo;ll present in her afternoon tutorial. She credits this routine with keeping her sane during exam period.</p>
+    </div>
+
+    <!-- p_highlight: tip (Highlight A) -->
+    <div class="story-highlight story-highlight--tip">
+      <span class="story-highlight__icon" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--anu-gold-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.4.3.6.8.6 1.3V16h6v-.9c0-.5.2-1 .6-1.3A6 6 0 0 0 12 3z"></path>
+        </svg>
+      </span>
+      <div class="story-highlight__body">
+        <div class="story-highlight__text"><p><strong>Good to know:</strong> Chifley Library opens at 6am on weekdays during semester — one of the earliest opening times on campus.</p></div>
+      </div>
+    </div>
+
+    <div class="story-rich-text">
+      <p>Ask her what she&rsquo;d tell a first-year version of herself, and Margaux doesn&rsquo;t hesitate — she says she wishes she&rsquo;d trusted the early mornings sooner instead of fighting them for most of first semester.</p>
+    </div>
+
+    <!-- p_quote: gold_mark, no author -->
+    <figure class="story-quote story-quote--gold-mark">
+      <blockquote>
+        <span class="story-quote__mark" aria-hidden="true">&ldquo;</span>
+        <p class="story-quote__text">The early mornings are my favourite part of ANU life.</p>
+      </blockquote>
+    </figure>
+
+    <div class="story-rich-text">
+      <p>By midday, Margaux&rsquo;s Tuesday runs into a two-hour tutorial on statistical methods, followed by an impromptu study group in Marie Reay Teaching Centre with two coursemates she met in first year. &ldquo;The tutorial groups are small,&rdquo; she says. &ldquo;You actually have to think and talk.&rdquo;</p>
+    </div>
+
+    <!-- p_image: small width -->
+    <figure class="story-image story-image--small">
+      <img src="img/campus-bikes.jpg" alt="Margaux's bike parked outside Fenner Hall">
+      <figcaption>Cycling is one of the most popular ways to get around campus.</figcaption>
+    </figure>
+
+    <!-- p_highlight: key_takeaway (Highlight B) -->
+    <div class="story-highlight story-highlight--key-takeaway">
+      <div class="story-highlight__body">
+        <p class="story-highlight__eyebrow">Good to know</p>
+        <div class="story-highlight__text"><p>Marie Reay Teaching Centre&rsquo;s seminar rooms seat between 8 and 20 students, built for discussion, not lectures.</p></div>
+      </div>
+    </div>
+
+    <div class="story-rich-text">
+      <p>Training starts at 4pm most weekdays, and Margaux says balancing a double degree with two competitive soccer squads was the single biggest adjustment she made in her first year. We asked her what surprised her most about university life outside the classroom.</p>
+    </div>
+
+    <!-- p_interview -->
+    <div class="story-interview">
+      <div class="story-interview__qa">
+        <p class="story-interview__label"><span class="visually-hidden">Question:</span> QUESTION</p>
+        <h3 class="story-interview__question">What surprised you most about ANU?</h3>
+        <div class="story-interview__answer"><p>&ldquo;How much happens outside class. Half my degree has genuinely happened at Kambri, or on the sideline of a soccer match, or in a group chat with people from a completely different course. Nobody warns you how social it actually gets once you stop treating uni like just lectures and tutorials.&rdquo;</p></div>
+      </div>
+    </div>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What surprised you most about ANU?","acceptedAnswer":{"@type":"Answer","text":"How much happens outside class. Half my degree has genuinely happened at Kambri, or on the sideline of a soccer match, or in a group chat with people from a completely different course. Nobody warns you how social it actually gets once you stop treating uni like just lectures and tutorials."}}]}
+    </script>
+
+    <!-- p_quote: copper_bar, with author -->
+    <figure class="story-quote story-quote--copper-bar">
+      <blockquote>
+        <p class="story-quote__text">The early mornings are my favourite part of ANU life.</p>
+      </blockquote>
+      <figcaption class="story-quote__cite">
+        <cite>Margaux Sieb, Commerce &amp; Psychology</cite>
+      </figcaption>
+    </figure>
+
+    <div class="story-rich-text">
+      <p>Most weeknights end with a match or a training session that runs until well after dark, and Margaux says the walk back through Kambri afterwards — tired, a bit sore, usually starving — is one of her favourite parts of the day.</p>
+    </div>
+
+    <!-- p_image: standard width -->
+    <figure class="story-image story-image--standard">
+      <img src="img/campus-courtyard.jpg" alt="Students gathered on Kambri Plaza in the evening">
+      <figcaption>Kambri Plaza after dark — the social heart of campus most evenings during semester.</figcaption>
+    </figure>
+
+    <!-- p_highlight: stat (Highlight F) -->
+    <div class="story-highlight story-highlight--stat">
+      <div class="story-highlight__body">
+        <p class="story-highlight__eyebrow">Good to know</p>
+        <div class="story-highlight__text"><p>ANU Students&rsquo; Association trivia runs every Tuesday at 7pm during semester — free entry for all students.</p></div>
+      </div>
+    </div>
+
+    <!-- p_rich_text: listicle section heading + ol listicle -->
+    <div class="story-rich-text">
+      <p>Looking back on her first year, Margaux says most of what she now takes for granted took her a full twelve months to figure out. She has three pieces of advice for anyone just starting out who is trying to fit everything in the way she does.</p>
+      <h2>Three things Margaux wishes she knew in first year</h2>
+      <ol>
+        <li><strong>Book the small seminar rooms early</strong> The quiet study rooms in Chifley fill up fast in exam period, sometimes days in advance.</li>
+        <li><strong>Treat training like a timetabled class</strong> Blocking it out the same way as a lecture made everything else easier to plan around.</li>
+        <li><strong>Talk to your tutors, not just your friends</strong> Office hours are quiet — a five-minute chat can change how you approach a whole assignment.</li>
+      </ol>
+      <p>By the time she&rsquo;s back in her room, it&rsquo;s nearly midnight — training ran long, and there was a group assignment to finish before tomorrow&rsquo;s tutorial. Margaux says she wouldn&rsquo;t trade a single hour of it.</p>
+    </div>
+
+  </div>
+
+  <!-- author byline, field_author_placement = bottom -->
+  <div class="story-byline story-byline--bottom">
+    <span class="story-byline__avatar story-byline__avatar--fallback" aria-hidden="true">MS</span>
+    <div>
+      <p class="story-byline__label">Written by</p>
+      <p class="story-byline__name">Margaux Sieb</p>
+      <p class="story-byline__role">Third-year Politics &amp; International Relations student, Fenner Hall.</p>
+    </div>
+  </div>
+
+</article>
+
+</body>
+</html>
